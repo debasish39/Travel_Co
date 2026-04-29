@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -30,62 +29,11 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/destination/:id" element={<DestinationDetails />} />
 
-          {/* 🔒 Protected Routes */}
-          <Route
-            path="/booking"
-            element={
-              <>
-                <SignedIn>
-                  <Booking />
-                </SignedIn>
-                <SignedOut>
-                  <RedirectToSignIn />
-                </SignedOut>
-              </>
-            }
-          />
-
-          <Route
-            path="/payment"
-            element={
-              <>
-                <SignedIn>
-                  <Payment />
-                </SignedIn>
-                <SignedOut>
-                  <RedirectToSignIn />
-                </SignedOut>
-              </>
-            }
-          />
-
-          <Route
-            path="/success/:bookingId"
-            element={
-              <>
-                <SignedIn>
-                  <Success />
-                </SignedIn>
-                <SignedOut>
-                  <RedirectToSignIn />
-                </SignedOut>
-              </>
-            }
-          />
-
-          <Route
-            path="/track-booking"
-            element={
-              <>
-                <SignedIn>
-                  <TrackBooking />
-                </SignedIn>
-                <SignedOut>
-                  <RedirectToSignIn />
-                </SignedOut>
-              </>
-            }
-          />
+          {/* Previously Protected Routes (now public) */}
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/success/:bookingId" element={<Success />} />
+          <Route path="/track-booking" element={<TrackBooking />} />
         </Routes>
       </div>
 
