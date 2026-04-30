@@ -13,6 +13,7 @@ import Payment from "./pages/Payment";
 import Contact from "./pages/Contact";
 import DestinationDetails from "./pages/DestinationDetails";
 import TrackBooking from "./pages/TrackBooking";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
           <Route path="/payment" element={<Payment />} />
           <Route path="/success/:bookingId" element={<Success />} />
           <Route path="/track-booking" element={<TrackBooking />} />
+          <Route path="*" element={<NotFound />} />
+
         </Routes>
       </div>
 

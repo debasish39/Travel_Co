@@ -232,7 +232,7 @@ export default function Booking() {
                   {/* Section: Traveller */}
                   <div>
                   
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                       <div className="f1">
                         <Field label="Full Name" icon="👤" error={errors.name}>
                           <input

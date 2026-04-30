@@ -17,7 +17,7 @@ export default function TrackBooking() {
       setBooking(null);
 
       const res = await fetch(
-        `https://travel-co-from-gitmain.onrender.com/api/bookings/${bookingId}`
+        `http://localhost:5000/api/bookings/${bookingId}`
       );
 
       const data = await res.json();

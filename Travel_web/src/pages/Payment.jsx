@@ -40,7 +40,7 @@ export default function Payment() {
       setIsPaying(true);
 
       if (isCOD) {
-        const res = await fetch("https://travel-co-from-gitmain.onrender.com/api/bookings", {
+        const res = await fetch("http://localhost:5000/api/bookings", {
           method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             bookingId,
@@ -71,7 +71,7 @@ export default function Payment() {
         return;
       }
 
-      const orderRes = await fetch("https://travel-co-from-gitmain.onrender.com/api/payment/create-order", {
+      const orderRes = await fetch("http://localhost:5000/api/payment/create-order", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: totalPrice }),
       });
@@ -85,10 +85,10 @@ export default function Payment() {
         theme: { color: "#4f46e5" },
         handler: async (response) => {
           try {
-            const vRes = await fetch("https://travel-co-from-gitmain.onrender.com/api/payment/verify-payment", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(response) });
+            const vRes = await fetch("http://localhost:5000/api/payment/verify-payment", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(response) });
             const vData = await vRes.json();
             if (!vData.success) { alert("Verification failed ❌"); setIsPaying(false); return; }
-            const sRes = await fetch("https://travel-co-from-gitmain.onrender.com/api/bookings", {
+            const sRes = await fetch("http://localhost:5000/api/bookings", {
               method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
                 bookingId,
                 title,
