@@ -55,7 +55,19 @@
 //   }
 // };
 
+import nodemailer from "nodemailer";
 
+// ✅ Define transporter OUTSIDE function
+const transporter = nodemailer.createTransport({
+  host: "smtp.sendgrid.net",
+  port: 587,
+  auth: {
+    user: "apikey",
+    pass: process.env.SENDGRID_API_KEY,
+  },
+});
+
+// ✅ Function
 export const sendEmail = async (to, subject, html) => {
   try {
     console.log("🚀 sendEmail triggered");
@@ -68,7 +80,7 @@ export const sendEmail = async (to, subject, html) => {
       html,
     });
 
-    console.log("✅ Email sent via SendGrid:", info.messageId);
+    console.log("✅ Email sent:", info.messageId);
 
   } catch (error) {
     console.error("❌ SendGrid FULL error:", error);
