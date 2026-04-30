@@ -55,37 +55,66 @@
 //   }
 // };
 
-import nodemailer from "nodemailer";
+// import nodemailer from "nodemailer";
 
-// ✅ Define transporter OUTSIDE function
-const transporter = nodemailer.createTransport({
-  host: "smtp.sendgrid.net",
-  port: 587,
-  auth: {
-    user: "apikey",
-    pass: process.env.SENDGRID_API_KEY,
-  },
-});
+// // ✅ Define transporter OUTSIDE function
+// const transporter = nodemailer.createTransport({
+//   host: "smtp.sendgrid.net",
+//   port: 587,
+//   auth: {
+//     user: "apikey",
+//     pass: process.env.SENDGRID_API_KEY,
+//   },
+// });
 
-// ✅ Function
+// // ✅ Function
+// export const sendEmail = async (to, subject, html) => {
+//   try {
+//     console.log("🚀 sendEmail triggered");
+//     console.log("📩 To:", to);
+
+//     const info = await transporter.sendMail({
+//       from: `"Travel Booking" <djproject963@gmail.com>`,
+//       to,
+//       subject,
+//       html,
+//     });
+
+//     console.log("✅ Email sent:", info.messageId);
+
+//   } catch (error) {
+//     console.error("❌ SendGrid FULL error:", error);
+//     if (error.response) {
+//       console.error("❌ SendGrid BODY:", error.response.body);
+//     }
+//   }
+// };
+
+
+import sgMail from "@sendgrid/mail";
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 export const sendEmail = async (to, subject, html) => {
   try {
     console.log("🚀 sendEmail triggered");
     console.log("📩 To:", to);
 
-    const info = await transporter.sendMail({
-      from: `"Travel Booking" <djproject963@gmail.com>`,
+    const msg = {
       to,
+      from: "djproject963@gmail.com", // must be verified
       subject,
       html,
-    });
+    };
 
-    console.log("✅ Email sent:", info.messageId);
+    const response = await sgMail.send(msg);
+
+    console.log("✅ Email sent via SendGrid API:", response[0].statusCode);
 
   } catch (error) {
-    console.error("❌ SendGrid FULL error:", error);
+    console.error("❌ SendGrid API error:", error);
     if (error.response) {
-      console.error("❌ SendGrid BODY:", error.response.body);
+      console.error(error.response.body);
     }
   }
 };
