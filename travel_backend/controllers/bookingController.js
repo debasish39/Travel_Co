@@ -43,11 +43,16 @@ export const createBooking = async (req, res) => {
     // ===============================
     // 📧 SEND EMAIL (NON-BLOCKING)
     // ===============================
- sendEmail(
-  booking.email,
-  "🎉 Booking Confirmed – TravelCo",
-  `
-  <div style="margin:0;padding:0;background:#eef2f7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;">
+// ===============================
+// 📧 SEND EMAIL (FIXED)
+// ===============================
+try {
+  console.log("📩 Sending email to:", booking.email);
+
+  await sendEmail(
+    booking.email,
+    "🎉 Booking Confirmed – TravelCo",
+     `<div style="margin:0;padding:0;background:#eef2f7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;"> 
     
     <div style="max-width:600px;margin:30px auto;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.1);">
       
@@ -141,7 +146,13 @@ export const createBooking = async (req, res) => {
     </div>
   </div>
   `
-).catch((err) => console.log("Email failed:", err.message));
+  );
+
+  console.log("✅ Email function completed");
+
+} catch (err) {
+  console.log("❌ Email failed:", err.message);
+}
    // ✅ RESPONSE
     res.status(201).json({
       success: true,

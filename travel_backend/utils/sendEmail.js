@@ -56,32 +56,24 @@
 // };
 
 
-import nodemailer from "nodemailer";
-
-const transporter = nodemailer.createTransport({
-  host: "smtp.sendgrid.net",
-  port: 587,
-  auth: {
-    user: "apikey", // MUST be exactly this string
-    pass: process.env.SENDGRID_API_KEY,
-  },
-});
-
 export const sendEmail = async (to, subject, html) => {
   try {
-    console.log("SENDGRID_API_KEY exists:", !!process.env.SENDGRID_API_KEY);
+    console.log("🚀 sendEmail triggered");
+    console.log("📩 To:", to);
 
-    const mailOptions = {
-      from: `"Travel Booking" <djproject963@gmail.com>`, // must be verified in SendGrid
+    const info = await transporter.sendMail({
+      from: `"Travel Booking" <djproject963@gmail.com>`,
       to,
       subject,
       html,
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
+    console.log("✅ Email sent via SendGrid:", info.messageId);
 
-    console.log("✅ Email sent via SendGrid");
   } catch (error) {
     console.error("❌ SendGrid FULL error:", error);
+    if (error.response) {
+      console.error("❌ SendGrid BODY:", error.response.body);
+    }
   }
 };
