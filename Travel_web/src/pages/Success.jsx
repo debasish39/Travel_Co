@@ -12,7 +12,7 @@ export default function Success() {
   useEffect(() => {
     const fetchBooking = async () => {
       try {
-        const res  = await fetch(`http://localhost:5000/api/bookings/${bookingId}`);
+        const res  = await fetch(`https://travel-co-from-gitmain.onrender.com/api/bookings/${bookingId}`);
         const data = await res.json();
         setBooking(data.success ? data.data : null);
       } catch (e) {
