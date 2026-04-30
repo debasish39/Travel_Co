@@ -9,7 +9,8 @@ export const sendEmail = async (to, subject, html) => {
         pass: process.env.EMAIL_PASS, // App password
       },
     });
-
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
     const mailOptions = {
       from: `"Travel Booking" <${process.env.EMAIL_USER}>`,
       to,
